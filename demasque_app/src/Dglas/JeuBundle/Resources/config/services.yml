@@ -2,3 +2,8 @@ services:
 #    dglas_jeu.example:
 #        class: Dglas\JeuBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+    dglas_jeu.admin.nommenclature_jeu:
+        class: Dglas\JeuBundle\Admin\NommenclatureJeuAdmin
+        arguments: [~, Dglas\JeuBundle\Entity\NommenclatureJeu, DglasJeuBundle:NommenclatureJeuAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: NommenclatureJeu }

@@ -7,8 +7,9 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
-class NommenclatureJeuAdmin extends AbstractAdmin
+class EtatJeuAdmin extends AbstractAdmin
 {
     /**
      * @param DatagridMapper $datagridMapper
@@ -16,7 +17,11 @@ class NommenclatureJeuAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('nom')
+            ->add('id')
+            ->add('date')
+            ->add('commentaire')
+            ->add('jouable')
+            ->add('piecesManquantes')
         ;
     }
 
@@ -26,7 +31,11 @@ class NommenclatureJeuAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('nom')
+            ->add('id')
+            ->add('date')
+            ->add('commentaire')
+            ->add('jouable')
+            ->add('piecesManquantes')
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -43,7 +52,21 @@ class NommenclatureJeuAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('nom')
+            ->add('date')
+            ->add('Jeu', 'entity', array(
+                'class' => 'Dglas\JeuBundle\Entity\Jeu',
+                'choice_label' => 'nom',
+            ))
+            ->add('nommenclatureJeu', 'entity', array(
+                'class' => 'Dglas\JeuBundle\Entity\NommenclatureJeu',
+                'choice_label' => 'nom',
+            ))
+            ->add('commentaire')
+            ->add('jouable', CheckboxType::class, array(
+                    'data' => true,
+                ))
+            ->add('piecesManquantes')
+
         ;
     }
 
@@ -53,7 +76,11 @@ class NommenclatureJeuAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('nom')
+            ->add('id')
+            ->add('date')
+            ->add('commentaire')
+            ->add('jouable')
+            ->add('piecesManquantes')
         ;
     }
 }

@@ -7,3 +7,31 @@ services:
         arguments: [~, Dglas\JeuBundle\Entity\NommenclatureJeu, DglasJeuBundle:NommenclatureJeuAdmin]
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: NommenclatureJeu }
+
+    dglas_jeu.admin.etat_jeu:
+        class: Dglas\JeuBundle\Admin\EtatJeuAdmin
+        arguments: [~, Dglas\JeuBundle\Entity\EtatJeu, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: EtatJeu }
+        public: true
+
+    dglas_jeu.admin.proprietaire:
+        class: Dglas\JeuBundle\Admin\ProprietaireAdmin
+        arguments: [~, Dglas\JeuBundle\Entity\Proprietaire, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Proprietaire }
+        public: true
+
+    dglas_jeu.admin.nommenclature_etat:
+        class: Dglas\JeuBundle\Admin\NommenclatureEtatAdmin
+        arguments: [~, Dglas\JeuBundle\Entity\NommenclatureEtat, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: NommenclatureEtat }
+        public: true
+
+    dglas_jeu.admin.jeu:
+        class: Dglas\JeuBundle\Admin\JeuAdmin
+        arguments: [~, Dglas\JeuBundle\Entity\Jeu, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Jeu }
+        public: true

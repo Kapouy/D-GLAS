@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class NommenclatureJeuAdmin extends AbstractAdmin
+class NommenclatureEtatAdmin extends AbstractAdmin
 {
     /**
      * @param DatagridMapper $datagridMapper
@@ -17,6 +17,7 @@ class NommenclatureJeuAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('nom')
+            ->add('ordre')
         ;
     }
 
@@ -27,6 +28,7 @@ class NommenclatureJeuAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('nom')
+            ->add('ordre')
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -44,6 +46,7 @@ class NommenclatureJeuAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('nom')
+            ->add('ordre')
         ;
     }
 
@@ -54,6 +57,7 @@ class NommenclatureJeuAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('nom')
+            ->add('ordre')
         ;
     }
 }

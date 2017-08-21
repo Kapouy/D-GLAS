@@ -216,28 +216,5 @@ class EtatJeu
     {
         return $this->nommenclatureEtat;
     }
-
-    /**
-     * Set nommenclatureJeu
-     *
-     * @param \Dglas\JeuBundle\Entity\NommenclatureJeu $nommenclatureJeu
-     *
-     * @return EtatJeu
-     */
-    public function setNommenclatureJeu(\Dglas\JeuBundle\Entity\NommenclatureJeu $nommenclatureJeu)
-    {
-        $this->nommenclatureJeu = $nommenclatureJeu;
-
-        return $this;
-    }
-
-    /**
-     * Get nommenclatureJeu
-     *
-     * @return \Dglas\JeuBundle\Entity\NommenclatureJeu
-     */
-    public function getNommenclatureJeu()
-    {
-        return $this->nommenclatureJeu;
-    }
 }
+

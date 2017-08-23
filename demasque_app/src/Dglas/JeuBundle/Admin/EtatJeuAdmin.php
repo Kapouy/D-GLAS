@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class EtatJeuAdmin extends AbstractAdmin
 {
@@ -52,22 +53,25 @@ class EtatJeuAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('date')
-            ->add('Jeu', 'entity', array(
-                'class' => 'Dglas\JeuBundle\Entity\Jeu',
-                'choice_label' => 'nom',
+        ->add('date', DateType::class, array(
+            'widget' => 'single_text',
+            'format' => 'dd/MM/yyyy',
+            'data' => new \DateTime(),
+        ))
+        ->add('commentaire')
+        ->add('jeu', 'entity', array(
+            'class' => 'Dglas\JeuBundle\Entity\Jeu',
+            'choice_label' => 'nom',
+        ))
+        ->add('nommenclatureEtat', 'entity', array(
+            'class' => 'Dglas\JeuBundle\Entity\NommenclatureEtat',
+            'choice_label' => 'nom',
+        ))
+        ->add('jouable', CheckboxType::class, array(
+                'data' => true,
             ))
-            ->add('nommenclatureJeu', 'entity', array(
-                'class' => 'Dglas\JeuBundle\Entity\NommenclatureJeu',
-                'choice_label' => 'nom',
-            ))
-            ->add('commentaire')
-            ->add('jouable', CheckboxType::class, array(
-                    'data' => true,
-                ))
-            ->add('piecesManquantes')
-
-        ;
+        ->add('piecesManquantes');
+        
     }
 
     /**

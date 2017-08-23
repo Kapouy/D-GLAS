@@ -1,0 +1,12 @@
+etatjeu_index:
+    path:     /
+    defaults: { _controller: "DglasJeuBundle:EtatJeu:index" }
+    methods:  GET
+
+etatjeu_show:
+    path:     /{id}/show
+    defaults: { _controller: "DglasJeuBundle:EtatJeu:show" }
+    methods:  GET
+
+
+

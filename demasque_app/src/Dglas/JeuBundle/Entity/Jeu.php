@@ -40,7 +40,7 @@ class Jeu
     /**
      * @var EtatJeu
      *
-     * @ORM\ManyToMany(targetEntity="EtatJeu")
+     * @ORM\ManyToMany(targetEntity="EtatJeu",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
      private $etatJeu;

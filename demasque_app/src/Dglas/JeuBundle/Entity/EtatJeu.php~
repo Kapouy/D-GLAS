@@ -57,13 +57,13 @@ class EtatJeu
      */
     private $jeu;
 
-    /**
-     * @var NommenclatureJeu
+        /**
+     * @var NommenclatureEtat
      *
-     * @ORM\ManyToOne(targetEntity="NommenclatureJeu")
+     * @ORM\ManyToOne(targetEntity="NommenclatureEtat")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $nommenclatureJeu;
+     private $nommenclatureEtat;
 
     /**
      * Get id
@@ -194,27 +194,7 @@ class EtatJeu
         return $this->jeu;
     }
 
-    /**
-     * Set nommenclatureEtat
-     *
-     * @param NommenclatureEtat $nommenclatureEtat
-     *
-     * @return EtatJeu
-     */
-    public function setNommenclatureEtat(NommenclatureEtat $nommenclatureEtat)
-    {
-        $this->nommenclatureEtat = $nommenclatureEtat;
-        return $this;
-    }
 
-    /**
-     * Get nommenclatureEtat
-     *
-     * @return NommenclatureEtat
-     */
-    public function getNommenclatureEtat()
-    {
-        return $this->nommenclatureEtat;
-    }
+
+
 }
-

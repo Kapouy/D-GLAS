@@ -3,11 +3,13 @@
 namespace Dglas\JeuBundle\Admin;
 
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Dglas\JeuBundle\Form\EtatJeuType;
 
 class JeuAdmin extends AbstractAdmin
 {
@@ -17,6 +19,8 @@ class JeuAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
+        ->add('nommenclatureJeu.nom')
+        ->add('proprietaire.nom')
         ;
     }
 
@@ -26,6 +30,8 @@ class JeuAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
+        ->add('nommenclatureJeu.nom')
+        ->add('proprietaire.nom')
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -51,16 +57,14 @@ class JeuAdmin extends AbstractAdmin
                 'choice_label' => 'nom',
             ))
             ->add('etatJeu', CollectionType::class, array(
-                'entry_type' => EtatJeu::class,
-                'entry_options'  => array(
-                    'attr'      => array('class' => 'email-box')
+                'entry_type' => EtatJeuType::class,
+                'entry_options' => array (
+                    'attr' => array('class' => 'Dglas\JeuBundle\Entity\EtatJeu')
                 ),
-            ),
-            array(
-                'edit' => 'standard',
-                'inline' => 'table',
-                'sortable' => 'position',
-                'limit' => 1
+                'allow_add' => true,
+                'prototype' => true,
+                // ->add('etatJeu', new EtatJeuType(), array(
+                // ), array('type' => 'form'))
             ))
         ;
     }
@@ -71,6 +75,8 @@ class JeuAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
+        ->add('nommenclatureJeu.nom')
+        ->add('proprietaire.nom')
         ;
     }
 }

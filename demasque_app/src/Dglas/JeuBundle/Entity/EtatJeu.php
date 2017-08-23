@@ -57,13 +57,13 @@ class EtatJeu
      */
     private $jeu;
 
-    /**
-     * @var NommenclatureJeu
+        /**
+     * @var NommenclatureEtat
      *
-     * @ORM\ManyToOne(targetEntity="NommenclatureJeu")
+     * @ORM\ManyToMany(targetEntity="NommenclatureEtat")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $nommenclatureJeu;
+     private $nommenclatureEtat;
 
     /**
      * Get id
@@ -194,50 +194,31 @@ class EtatJeu
         return $this->jeu;
     }
 
+
+
+
+
     /**
      * Set nommenclatureEtat
      *
-     * @param NommenclatureEtat $nommenclatureEtat
+     * @param \Dglas\JeuBundle\Entity\NommenclatureEtat $nommenclatureEtat
      *
      * @return EtatJeu
      */
-    public function setNommenclatureEtat(NommenclatureEtat $nommenclatureEtat)
+    public function setNommenclatureEtat(\Dglas\JeuBundle\Entity\NommenclatureEtat $nommenclatureEtat)
     {
         $this->nommenclatureEtat = $nommenclatureEtat;
+
         return $this;
     }
 
     /**
      * Get nommenclatureEtat
      *
-     * @return NommenclatureEtat
+     * @return \Dglas\JeuBundle\Entity\NommenclatureEtat
      */
     public function getNommenclatureEtat()
     {
         return $this->nommenclatureEtat;
-    }
-
-    /**
-     * Set nommenclatureJeu
-     *
-     * @param \Dglas\JeuBundle\Entity\NommenclatureJeu $nommenclatureJeu
-     *
-     * @return EtatJeu
-     */
-    public function setNommenclatureJeu(\Dglas\JeuBundle\Entity\NommenclatureJeu $nommenclatureJeu)
-    {
-        $this->nommenclatureJeu = $nommenclatureJeu;
-
-        return $this;
-    }
-
-    /**
-     * Get nommenclatureJeu
-     *
-     * @return \Dglas\JeuBundle\Entity\NommenclatureJeu
-     */
-    public function getNommenclatureJeu()
-    {
-        return $this->nommenclatureJeu;
     }
 }

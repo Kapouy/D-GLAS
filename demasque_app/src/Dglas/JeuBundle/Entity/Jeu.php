@@ -22,6 +22,13 @@ class Jeu
     private $id;
 
     /**
+     * @var idPhysique
+     *
+     * @ORM\Column(name="idPhysique", type="integer")
+     */
+     private $idPhysique;
+
+    /**
      * @var NommenclatureJeu
      *
      * @ORM\ManyToOne(targetEntity="NommenclatureJeu")
@@ -40,7 +47,7 @@ class Jeu
     /**
      * @var EtatJeu
      *
-     * @ORM\ManyToMany(targetEntity="EtatJeu",cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="EtatJeu", mappedBy="jeu", cascade={"persist"}, fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
      private $etatJeu;
@@ -141,5 +148,34 @@ class Jeu
     public function getEtatJeu()
     {
         return $this->etatJeu;
+    }
+
+    public function getNomJeuNomProprietaire()
+    {
+        return sprintf('%s %s - %s', $this->idPhysique, $this->getNommenclatureJeu()->getNom(), $this->getProprietaire()->getNom());
+    }
+
+    /**
+     * Set idPhysique
+     *
+     * @param integer $idPhysique
+     *
+     * @return Jeu
+     */
+    public function setIdPhysique($idPhysique)
+    {
+        $this->idPhysique = $idPhysique;
+
+        return $this;
+    }
+
+    /**
+     * Get idPhysique
+     *
+     * @return integer
+     */
+    public function getIdPhysique()
+    {
+        return $this->idPhysique;
     }
 }

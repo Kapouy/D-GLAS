@@ -60,7 +60,7 @@ class EtatJeu
         /**
      * @var NommenclatureEtat
      *
-     * @ORM\ManyToMany(targetEntity="NommenclatureEtat")
+     * @ORM\ManyToOne(targetEntity="NommenclatureEtat")
      * @ORM\JoinColumn(nullable=false)
      */
      private $nommenclatureEtat;
@@ -220,5 +220,10 @@ class EtatJeu
     public function getNommenclatureEtat()
     {
         return $this->nommenclatureEtat;
+    }
+
+    public function getStringDateEtat()
+    {
+        return sprintf('%s  %s', $this->getDate()->format('Y-M-d'), $this->getNommenclatureEtat()->getNom());
     }
 }

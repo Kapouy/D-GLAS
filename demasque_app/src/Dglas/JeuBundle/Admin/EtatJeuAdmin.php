@@ -18,8 +18,9 @@ class EtatJeuAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
+
             ->add('date')
+            ->add('nommenclatureEtat.nom')
             ->add('commentaire')
             ->add('jouable')
             ->add('piecesManquantes')
@@ -32,11 +33,12 @@ class EtatJeuAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id')
+
             ->add('date')
-            ->add('commentaire')
+            ->add('nommenclatureEtat.nom')
             ->add('jouable')
             ->add('piecesManquantes')
+            ->add('commentaire')
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -61,7 +63,7 @@ class EtatJeuAdmin extends AbstractAdmin
         ->add('commentaire')
         ->add('jeu', 'entity', array(
             'class' => 'Dglas\JeuBundle\Entity\Jeu',
-            'choice_label' => 'nom',
+            'choice_label' => 'nomJeuNomProprietaire',
         ))
         ->add('nommenclatureEtat', 'entity', array(
             'class' => 'Dglas\JeuBundle\Entity\NommenclatureEtat',
@@ -80,11 +82,15 @@ class EtatJeuAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id')
+
+            ->add('jeu.proprietaire', 'entity', array(
+                'class' => 'Dglas\JeuBundle\Entity\Proprietaire',
+                'property' => 'nom'))
             ->add('date')
-            ->add('commentaire')
+            ->add('nommenclatureEtat.nom')
             ->add('jouable')
             ->add('piecesManquantes')
+            ->add('commentaire')
         ;
     }
 }

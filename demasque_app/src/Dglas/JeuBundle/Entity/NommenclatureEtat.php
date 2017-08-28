@@ -35,14 +35,6 @@ class NommenclatureEtat
      */
     private $ordre;
 
-        /**
-     * @var EtatJeu
-     *
-     * @ORM\ManyToMany(targetEntity="EtatJeu")
-     * @ORM\JoinColumn(nullable=false)
-     */
-     private $etatJeu;
-
     /**
      * Get id
      *
@@ -105,40 +97,7 @@ class NommenclatureEtat
      */
     public function __construct()
     {
-        $this->etatJeu = new \Doctrine\Common\Collections\ArrayCollection();
+        
     }
-
-    /**
-     * Add etatJeu
-     *
-     * @param \Dglas\JeuBundle\Entity\EtatJeu $etatJeu
-     *
-     * @return NommenclatureEtat
-     */
-    public function addEtatJeu(\Dglas\JeuBundle\Entity\EtatJeu $etatJeu)
-    {
-        $this->etatJeu[] = $etatJeu;
-
-        return $this;
-    }
-
-    /**
-     * Remove etatJeu
-     *
-     * @param \Dglas\JeuBundle\Entity\EtatJeu $etatJeu
-     */
-    public function removeEtatJeu(\Dglas\JeuBundle\Entity\EtatJeu $etatJeu)
-    {
-        $this->etatJeu->removeElement($etatJeu);
-    }
-
-    /**
-     * Get etatJeu
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getEtatJeu()
-    {
-        return $this->etatJeu;
-    }
+    
 }

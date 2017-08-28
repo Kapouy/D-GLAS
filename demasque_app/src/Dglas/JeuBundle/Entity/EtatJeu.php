@@ -52,7 +52,7 @@ class EtatJeu
     /**
      * @var Jeu
      *
-     * @ORM\ManyToOne(targetEntity="Jeu")
+     * @ORM\ManyToOne(targetEntity="Jeu", inversedBy="etatJeu")
      * @ORM\JoinColumn(nullable=false)
      */
     private $jeu;

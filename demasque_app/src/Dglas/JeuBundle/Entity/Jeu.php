@@ -125,8 +125,8 @@ class Jeu
      */
     public function addEtatJeu(\Dglas\JeuBundle\Entity\EtatJeu $etatJeu)
     {
-        $this->etatJeu[] = $etatJeu;
-
+        $etatJeu->setJeu($this);
+        $this->etatJeu->add($etatJeu);
         return $this;
     }
 
@@ -178,4 +178,5 @@ class Jeu
     {
         return $this->idPhysique;
     }
+    
 }

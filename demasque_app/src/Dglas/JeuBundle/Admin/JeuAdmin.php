@@ -59,16 +59,14 @@ class JeuAdmin extends AbstractAdmin
                 'class' => 'Dglas\JeuBundle\Entity\Proprietaire',
                 'choice_label' => 'nom',
             ))
-            ->add('etatJeu', CollectionType::class, array(
-                'entry_type' => EtatJeuType::class,
-                'entry_options' => array (
-                    'attr' => array('class' => 'Dglas\JeuBundle\Entity\EtatJeu')
-                ),
-                'allow_add' => true,
-                'prototype' => true,
-                // ->add('etatJeu', new EtatJeuType(), array(
-                // ), array('type' => 'form'))
-            ))
+            //->add('etatJeux', CollectionType::class, array(
+            //    'entry_type' => EtatJeuType::class,
+             //   'entry_options' => array (
+              //      'attr' => array('class' => 'Dglas\JeuBundle\Entity\EtatJeu')
+               // ),
+               // 'allow_add' => true
+                
+            //))
         ;
     }
 
@@ -85,9 +83,4 @@ class JeuAdmin extends AbstractAdmin
             'associated_property' => 'stringDateEtat')
         )
         ;
-
-        
-    }
-
-    
-}
+    }}

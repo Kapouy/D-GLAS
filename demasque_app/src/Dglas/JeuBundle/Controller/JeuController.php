@@ -36,11 +36,17 @@ class JeuController extends Controller
         $jeu = new Jeu();
         $form = $this->createForm('Dglas\JeuBundle\Form\JeuType', $jeu);
         $form->handleRequest($request);
+        // $form->bind($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($jeu);
-            $em->flush();
+
+            foreach ($jeu->getEtatJeu() as $etat) {
+               $etat->setJeu($jeu);
+            }
+    
+                $em->persist($jeu);
+                $em->flush();
 
             return $this->redirectToRoute('jeu_show', array('id' => $jeu->getId()));
         }
@@ -77,6 +83,10 @@ class JeuController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            foreach ($jeu->getEtatJeu() as $etat) {
+                $etat->setProduct($jeu);
+            }
 
             return $this->redirectToRoute('jeu_edit', array('id' => $jeu->getId()));
         }

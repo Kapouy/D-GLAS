@@ -5,12 +5,12 @@ namespace Dglas\JeuBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * NommenclatureJeu
+ * GestionnaireJeu
  *
- * @ORM\Table(name="nommenclature_jeu")
- * @ORM\Entity(repositoryClass="Dglas\JeuBundle\Repository\NommenclatureJeuRepository")
+ * @ORM\Table(name="gestionaire_jeu")
+ * @ORM\Entity(repositoryClass="Dglas\JeuBundle\Repository\GestionnaireJeuRepository")
  */
-class NommenclatureJeu
+class GestionnaireJeu
 {
     /**
      * @var int
@@ -28,6 +28,7 @@ class NommenclatureJeu
      */
     private $nom;
 
+
     /**
      * Get id
      *
@@ -43,7 +44,7 @@ class NommenclatureJeu
      *
      * @param string $nom
      *
-     * @return NommenclatureJeu
+     * @return GestionnaireJeu
      */
     public function setNom($nom)
     {
@@ -61,5 +62,4 @@ class NommenclatureJeu
     {
         return $this->nom;
     }
-
 }

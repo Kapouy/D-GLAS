@@ -63,4 +63,3 @@ class Proprietaire
         return $this->nom;
     }
 }
-

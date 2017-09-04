@@ -1,0 +1,12 @@
+dglas_jeu_etatjeu:
+    resource: "@DglasJeuBundle/Resources/config/routing/etatjeu.yml"
+    prefix:   /etatjeu
+
+dglas_jeu_jeu:
+    resource: "@DglasJeuBundle/Resources/config/routing/jeu.yml"
+    prefix:   /jeu
+
+dglas_jeu_homepage:
+    path:     /
+    defaults: { _controller: DglasJeuBundle:Default:index }
+

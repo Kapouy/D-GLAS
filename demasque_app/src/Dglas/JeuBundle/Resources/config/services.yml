@@ -1,0 +1,58 @@
+services:
+#    dglas_jeu.example:
+#        class: Dglas\JeuBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    dglas_jeu.admin.nommenclature_jeu:
+        class: Dglas\JeuBundle\Admin\NommenclatureJeuAdmin
+        arguments: [~, Dglas\JeuBundle\Entity\NommenclatureJeu, DglasJeuBundle:NommenclatureJeuAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: NommenclatureJeu }
+
+    dglas_jeu.admin.etat_jeu:
+        class: Dglas\JeuBundle\Admin\EtatJeuAdmin
+        arguments: [~, Dglas\JeuBundle\Entity\EtatJeu, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: EtatJeu }
+        public: true
+
+    dglas_jeu.admin.proprietaire:
+        class: Dglas\JeuBundle\Admin\ProprietaireAdmin
+        arguments: [~, Dglas\JeuBundle\Entity\Proprietaire, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Proprietaire }
+        public: true
+
+    dglas_jeu.admin.nommenclature_etat:
+        class: Dglas\JeuBundle\Admin\NommenclatureEtatAdmin
+        arguments: [~, Dglas\JeuBundle\Entity\NommenclatureEtat, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: NommenclatureEtat }
+        public: true
+
+    dglas_jeu.admin.jeu:
+        class: Dglas\JeuBundle\Admin\JeuAdmin
+        arguments: [~, Dglas\JeuBundle\Entity\Jeu, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Jeu }
+        public: true
+
+    dglas_jeu.admin.gestionnaire_jeu:
+        class: Dglas\JeuBundle\Admin\GestionnaireJeuAdmin
+        arguments: [~, Dglas\JeuBundle\Entity\GestionnaireJeu, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: GestionnaireJeu }
+        public: true
+
+    dglas_jeu.admin.lieu:
+        class: Dglas\JeuBundle\Admin\LieuAdmin
+        arguments: [~, Dglas\JeuBundle\Entity\Lieu, DglasJeuBundle:LieuAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Lieu }
+        public: true
+
+    dglas_jeu.admin.mouvement_jeu:
+        class: Dglas\JeuBundle\Admin\MouvementJeuAdmin
+        arguments: [~, Dglas\JeuBundle\Entity\MouvementJeu, DglasJeuBundle:MouvementJeuAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: MouvementJeu }
+        public: true

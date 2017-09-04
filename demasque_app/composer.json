@@ -6,7 +6,8 @@
     "autoload": {
         "psr-4": {
             "AppBundle\\": "src/AppBundle",
-            "Application\\": "src/Application"
+            "Application\\": "src/Application",
+            "Dglas\\": "src/Dglas"
         },
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
@@ -35,7 +36,7 @@
 		"coresphere/console-bundle": "~0.4"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~3.0",
+        "sensio/generator-bundle": "^3.1",
         "symfony/phpunit-bridge": "~2.7"
     },
     "scripts": {

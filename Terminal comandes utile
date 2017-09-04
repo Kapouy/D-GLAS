@@ -1,0 +1,13 @@
+
+sudo service mysql status
+sudo service mysql stop
+sudo service mysql start
+
+php app/console server:start
+php app/console assets:install
+
+http://localhost:8000/admin
+
+php app/console doctrine:generate:entities Dglas/JeuBundle/Entity/EtatJeu
+
+php app/console sonata:admin:generate

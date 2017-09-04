@@ -24,7 +24,7 @@ class Jeu
     /**
      * @var idPhysique
      *
-     * @ORM\Column(name="idPhysique", type="integer")
+     * @ORM\Column(name="idPhysique", type="integer", unique=true)
      */
      private $idPhysique;
 

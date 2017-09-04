@@ -47,5 +47,52 @@ class LigneReservation
     {
         return $this->id;
     }
-}
 
+    /**
+     * Set reservation
+     *
+     * @param \Dglas\JeuBundle\Entity\Reservation $reservation
+     *
+     * @return LigneReservation
+     */
+    public function setReservation(\Dglas\JeuBundle\Entity\Reservation $reservation)
+    {
+        $this->reservation = $reservation;
+
+        return $this;
+    }
+
+    /**
+     * Get reservation
+     *
+     * @return \Dglas\JeuBundle\Entity\Reservation
+     */
+    public function getReservation()
+    {
+        return $this->reservation;
+    }
+
+    /**
+     * Set jeu
+     *
+     * @param \Dglas\JeuBundle\Entity\Jeu $jeu
+     *
+     * @return LigneReservation
+     */
+    public function setJeu(\Dglas\JeuBundle\Entity\Jeu $jeu)
+    {
+        $this->jeu = $jeu;
+
+        return $this;
+    }
+
+    /**
+     * Get jeu
+     *
+     * @return \Dglas\JeuBundle\Entity\Jeu
+     */
+    public function getJeu()
+    {
+        return $this->jeu;
+    }
+}

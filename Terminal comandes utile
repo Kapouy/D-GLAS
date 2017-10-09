@@ -8,6 +8,10 @@ php app/console assets:install
 
 http://localhost:8000/admin
 
+mysql -uroot -p demasque_app
+
 php app/console doctrine:generate:entities Dglas/JeuBundle/Entity/EtatJeu
 
 php app/console sonata:admin:generate
+php app/console generate:bundle --namespace=Dglas/**Bundle
+php app/console generate:doctrine:entity

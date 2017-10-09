@@ -2,14 +2,12 @@
 
 namespace Dglas\JeuBundle\Admin;
 
+use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Dglas\JeuBundle\Form\JeuType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class MouvementJeuAdmin extends AbstractAdmin
@@ -25,8 +23,7 @@ class MouvementJeuAdmin extends AbstractAdmin
             ->add('gestionnaireJeu.nom')
             ->add('dateRetourPrevu')
             ->add('destination.nom')
-            ->add('commentaire')
-        ;
+            ->add('commentaire');
     }
 
     /**
@@ -35,20 +32,19 @@ class MouvementJeuAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-        ->add('id')
-        ->add('dateMouvement')
-        ->add('gestionnaireJeu.nom')
-        ->add('dateRetourPrevu')
-        ->add('destination.nom')
-        ->add('commentaire')
-                    ->add('_action', null, array(
+            ->add('id')
+            ->add('dateMouvement')
+            ->add('gestionnaireJeu.nom')
+            ->add('dateRetourPrevu')
+            ->add('destination.nom')
+            ->add('commentaire')
+            ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
                 ),
-            ))
-        ;
+            ));
     }
 
     /**
@@ -79,10 +75,13 @@ class MouvementJeuAdmin extends AbstractAdmin
             ->add('jeux', 'entity', array(
                 'class' => 'Dglas\JeuBundle\Entity\Jeu',
                 'choice_label' => 'nomJeuNomProprietaire',
-                'expanded' => true,
-                'multiple' => true
-            ))
-            ;
+                'expanded' => false,
+                'multiple' => true,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.idPhysique', 'ASC');
+                },
+            ));
     }
 
     /**
@@ -97,8 +96,7 @@ class MouvementJeuAdmin extends AbstractAdmin
             ->add('dateRetourPrevu')
             ->add('destination.nom')
             ->add('jeux', null, array(
-                'associated_property' => 'nomJeuNomProprietaire')
-            )
-        ;
+                    'associated_property' => 'nomJeuNomProprietaire')
+            );
     }
 }

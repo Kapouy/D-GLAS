@@ -2,6 +2,8 @@
 
 namespace Dglas\JeuBundle\Entity;
 
+use Dglas\JeuBundle\Entity\EtatJeu;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,9 +24,9 @@ class Jeu
     private $id;
 
     /**
-     * @var idPhysique
+     * @var string
      *
-     * @ORM\Column(name="idPhysique", type="integer", unique=true)
+     * @ORM\Column(name="idPhysique", type="integer")
      */
      private $idPhysique;
 
@@ -47,7 +49,7 @@ class Jeu
     /**
      * @var EtatJeu
      *
-     * @ORM\OneToMany(targetEntity="EtatJeu", mappedBy="jeu", cascade={"persist"}, fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="EtatJeu", mappedBy="jeu", cascade={"persist"}), fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
      private $etatJeu;
@@ -113,17 +115,17 @@ class Jeu
      */
     public function __construct()
     {
-        $this->etatJeu = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->etatJeu = new ArrayCollection();
     }
 
     /**
      * Add etatJeu
      *
-     * @param \Dglas\JeuBundle\Entity\EtatJeu $etatJeu
+     * @param EtatJeu $etatJeu
      *
      * @return Jeu
      */
-    public function addEtatJeu(\Dglas\JeuBundle\Entity\EtatJeu $etatJeu)
+    public function addEtatJeu(EtatJeu $etatJeu)
     {
         $etatJeu->setJeu($this);
         $this->etatJeu->add($etatJeu);
@@ -133,9 +135,9 @@ class Jeu
     /**
      * Remove etatJeu
      *
-     * @param \Dglas\JeuBundle\Entity\EtatJeu $etatJeu
+     * @param EtatJeu $etatJeu
      */
-    public function removeEtatJeu(\Dglas\JeuBundle\Entity\EtatJeu $etatJeu)
+    public function removeEtatJeu(EtatJeu $etatJeu)
     {
         $this->etatJeu->removeElement($etatJeu);
     }
@@ -143,16 +145,26 @@ class Jeu
     /**
      * Get etatJeu
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection|EtatJeu[]
      */
     public function getEtatJeu()
     {
         return $this->etatJeu;
     }
 
+    /**
+     * @param \Dglas\JeuBundle\Entity\EtatJeu[]|ArrayCollection $etatJeu
+     * @return Jeu
+     */
+    public function setEtatJeu($etatJeu)
+    {
+        $this->etatJeu = $etatJeu;
+        return $this;
+    }
+
     public function getNomJeuNomProprietaire()
     {
-        return sprintf('%s %s - %s', $this->idPhysique, $this->getNommenclatureJeu()->getNom(), $this->getProprietaire()->getNom());
+        return sprintf('%s %s - %s', str_pad($this->idPhysique, 3, '0', STR_PAD_LEFT), $this->getNommenclatureJeu()->getNom(), $this->getProprietaire()->getNom());
     }
 
     /**

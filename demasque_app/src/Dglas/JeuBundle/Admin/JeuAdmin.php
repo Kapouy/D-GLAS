@@ -2,6 +2,8 @@
 
 namespace Dglas\JeuBundle\Admin;
 
+use Dglas\JeuBundle\Entity\Jeu;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
@@ -19,10 +21,9 @@ class JeuAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-        ->add('idPhysique')
-        ->add('nommenclatureJeu.nom')
-        ->add('proprietaire.nom')
-        ;
+            ->add('idPhysique')
+            ->add('nommenclatureJeu.nom')
+            ->add('proprietaire.nom');
     }
 
     /**
@@ -31,17 +32,16 @@ class JeuAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-        ->add('idPhysique')
-        ->add('nommenclatureJeu.nom')
-        ->add('proprietaire.nom')
-        ->add('_action', null, array(
-            'actions' => array(
-                'show' => array(),
-                'edit' => array(),
-                'delete' => array(),
-            ),
-        ))
-        ;
+            ->add('idPhysique')
+            ->add('nommenclatureJeu.nom')
+            ->add('proprietaire.nom')
+            ->add('_action', null, array(
+                'actions' => array(
+                    'show' => array(),
+                    'edit' => array(),
+                    'delete' => array(),
+                ),
+            ));
     }
 
     /**
@@ -50,24 +50,22 @@ class JeuAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('nommenclatureJeu', 'entity', array(
+            ->add('nommenclatureJeu', EntityType::class, array(
                 'class' => 'Dglas\JeuBundle\Entity\NommenclatureJeu',
-                'choice_label' => 'nom',
+                'choice_label' => 'nom'
             ))
             ->add('idPhysique')
-            ->add('proprietaire', 'entity', array(
+            ->add('proprietaire', EntityType::class, array(
                 'class' => 'Dglas\JeuBundle\Entity\Proprietaire',
                 'choice_label' => 'nom',
             ))
-            //->add('etatJeux', CollectionType::class, array(
-            //    'entry_type' => EtatJeuType::class,
-             //   'entry_options' => array (
-              //      'attr' => array('class' => 'Dglas\JeuBundle\Entity\EtatJeu')
-               // ),
-               // 'allow_add' => true
-                
-            //))
-        ;
+            ->add('etatJeu', CollectionType::class, array(
+                'entry_type' => EtatJeuType::class,
+                'entry_options' => array(
+                    'attr' => array('class' => 'Dglas\JeuBundle\Entity\EtatJeu')
+                ),
+                'allow_add' => true
+            ));
     }
 
     /**
@@ -76,11 +74,11 @@ class JeuAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-        ->add('idPhysique')
-        ->add('nommenclatureJeu.nom')
-        ->add('proprietaire.nom')
-        ->add('etatJeu', null, array(
-            'associated_property' => 'stringDateEtat')
-        )
-        ;
-    }}
+            ->add('idPhysique')
+            ->add('nommenclatureJeu.nom')
+            ->add('proprietaire.nom')
+            ->add('etatJeu', null, array(
+                    'associated_property' => 'stringDateEtat')
+            );
+    }
+}

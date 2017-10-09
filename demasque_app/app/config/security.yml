@@ -53,4 +53,5 @@ security:
         - { path: ^/admin/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
         - { path: ^/admin/, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
+        #- { path: ^/api/, role: [ROLE_USER] }
         - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }

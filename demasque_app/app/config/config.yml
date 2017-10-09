@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@DglasCaisseBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -94,5 +95,37 @@ sonata_block:
 sonata_admin:
     title:      'De-Masque'
     dashboard:
+        groups:
+                dglas.caisse.admin.jeux:
+                    label: 'Jeux'
+                    items:
+                        - dglas_jeu.admin.jeu
+                        - dglas_jeu.admin.mouvement_jeu
+                dglas.caisse.admin.finance:
+                    label: 'Finances'
+                    items:
+                        - dglas_caisse.admin.caisse
+                dglas.admin.nomenclature:
+                    label: 'Parametrage'
+                    items:
+                        - dglas_jeu.admin.nommenclature_jeu
+                        - dglas_jeu.admin.nommenclature_etat
+                        - dglas_jeu.admin.proprietaire
+                        - dglas_jeu.admin.gestionnaire_jeu
+                        - dglas_jeu.admin.lieu
     security:
         handler: sonata.admin.security.handler.role
+
+fos_rest:
+    format_listener: true
+    param_fetcher_listener: true
+    routing_loader:
+        default_format: json
+        include_format: true
+    serializer:
+        serialize_null: true
+    view:
+        view_response_listener: 'force'
+        formats:
+            xml: true
+            json : true

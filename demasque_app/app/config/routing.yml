@@ -1,3 +1,12 @@
+dglas_caisse: 
+    resource: "@DglasCaisseBundle/Resources/config/routing.yml"
+    prefix:   /
+
+dglas_jeu_rest: 
+    resource: "@DglasJeuRestBundle/Controller/" 
+    type:     rest 
+    prefix:   /api 
+
 dglas_jeu:
     resource: "@DglasJeuBundle/Resources/config/routing.yml"
     prefix:   /

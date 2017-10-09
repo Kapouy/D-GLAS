@@ -1,0 +1,82 @@
+Dglas\CaisseBundle\Entity\Caisse:
+    type: entity
+    table: null
+    repositoryClass: Dglas\CaisseBundle\Repository\CaisseRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        dateCaisse:
+            type: date
+        benevole:
+            type: array
+        fond10:
+            type: integer
+            nullable: true
+        fond5:
+            type: integer
+            nullable: true
+        fond2:
+            type: integer
+            nullable: true
+        fond1:
+            type: integer
+            nullable: true
+        fond05:
+            type: integer
+            nullable: true
+        fond02:
+            type: integer
+            nullable: true
+        fond01:
+            type: integer
+            nullable: true
+        caisse100:
+            type: integer
+            nullable: true
+        caisse50:
+            type: integer
+            nullable: true
+        caisse20:
+            type: integer
+            nullable: true
+        caisse10:
+            type: integer
+            nullable: true
+        caisse5:
+            type: integer
+            nullable: true
+        caisse2:
+            type: integer
+            nullable: true
+        caisse1:
+            type: integer
+            nullable: true
+        caisse05:
+            type: integer
+            nullable: true
+        caisse02:
+            type: integer
+            nullable: true
+        caisse01:
+            type: integer
+            nullable: true
+        caisse005:
+            type: integer
+            nullable: true
+        caisse002:
+            type: integer
+            nullable: true
+        caisse001:
+            type: integer
+            nullable: true
+        caisseCB:
+            type: float
+            nullable: true
+        cheque:
+            type: float
+            nullable: true
+    lifecycleCallbacks: {  }

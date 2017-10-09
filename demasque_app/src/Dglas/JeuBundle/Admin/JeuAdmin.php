@@ -52,7 +52,7 @@ class JeuAdmin extends AbstractAdmin
         $formMapper
             ->add('nommenclatureJeu', 'entity', array(
                 'class' => 'Dglas\JeuBundle\Entity\NommenclatureJeu',
-                'choice_label' => 'nom',
+                'choice_label' => 'nom'
             ))
             ->add('idPhysique')
             ->add('proprietaire', 'entity', array(

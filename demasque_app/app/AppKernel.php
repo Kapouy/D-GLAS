@@ -38,6 +38,8 @@ class AppKernel extends Kernel
             // Application
             new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
             new Dglas\JeuBundle\DglasJeuBundle(),
+            new Dglas\JeuRestBundle\DglasJeuRestBundle(),
+            new Dglas\CaisseBundle\DglasCaisseBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

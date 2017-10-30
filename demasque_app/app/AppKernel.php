@@ -40,6 +40,7 @@ class AppKernel extends Kernel
             new Dglas\JeuBundle\DglasJeuBundle(),
             new Dglas\JeuRestBundle\DglasJeuRestBundle(),
             new Dglas\CaisseBundle\DglasCaisseBundle(),
+            new Dglas\CoursesBundle\DglasCoursesBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

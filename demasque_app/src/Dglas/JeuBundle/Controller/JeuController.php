@@ -33,7 +33,14 @@ class JeuController extends Controller
      */
     public function newAction(Request $request)
     {
+
+        $repo = $this->getDoctrine()->getRepository(Jeu::class);
+        $query = $repo->createQueryBuilder('s');
+        $query->select('MAX(s.idPhysique) +1');
+        $newId = $query->getQuery()->getResult();
+
         $jeu = new Jeu();
+        $jeu->setIdPhysique($newId);
         $form = $this->createForm('Dglas\JeuBundle\Form\JeuType', $jeu);
         $form->handleRequest($request);
         // $form->bind($request);

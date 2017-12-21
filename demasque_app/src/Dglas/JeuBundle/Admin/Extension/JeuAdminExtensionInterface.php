@@ -148,6 +148,15 @@ class JeuAdminExtensionInterface implements AdminExtensionInterface
             ->setJeu($object);
 
         $object->addEtatJeu($etatJeu);
+
+        $repo = $this->entityManager->getRepository(Jeu::class);
+        
+        $query = $repo->createQueryBuilder('s');
+        $query->select('MAX(s.idPhysique)+1 as valeur');
+        $newId = $query->getQuery()->getResult();
+
+        $object->setIdPhysique($newId[0]['valeur']);
+        
     }
 
     /**

@@ -79,6 +79,9 @@ class JeuAdmin extends AbstractAdmin
             ->add('proprietaire.nom')
             ->add('etatJeu', null, array(
                     'associated_property' => 'stringDateEtat')
+            )
+            ->add('mouvementJeu', null, array(
+                'associated_property' => 'stringInfoMouvement')
             );
     }
 }

@@ -123,9 +123,10 @@ class Jeu
      * 
      * @param int $idPhysique
      */
-    public function __construct()
+    public function __construct($idPhysique)
     {
         $this->etatJeu = new ArrayCollection();
+        $this->idPhysique = $idPhysique;
     }
 
     /**

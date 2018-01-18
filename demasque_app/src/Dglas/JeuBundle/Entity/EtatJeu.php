@@ -48,6 +48,13 @@ class EtatJeu
      * @ORM\Column(name="piecesManquantes", type="boolean")
      */
     private $piecesManquantes;
+    
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="flagInventaire", type="boolean")
+     */
+    private $flagInventaire = false;
 
     /**
      * @var Jeu
@@ -64,6 +71,16 @@ class EtatJeu
      * @ORM\JoinColumn(nullable=false)
      */
      private $nommenclatureEtat;
+
+     
+        /**
+     * @var Inventaire
+     *
+     * @ORM\ManyToOne(targetEntity="Inventaire")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $inventaire;
+
 
     /**
      * Get id
@@ -194,10 +211,6 @@ class EtatJeu
         return $this->jeu;
     }
 
-
-
-
-
     /**
      * Set nommenclatureEtat
      *
@@ -225,5 +238,74 @@ class EtatJeu
     public function getStringDateEtat()
     {
         return sprintf('%s  %s', $this->getDate()->format('Y-M-d'), $this->getNommenclatureEtat()->getNom());
+    }
+
+    public function getStringEtatJouable()
+    {
+        return sprintf('%s jouable - %s', $this->getJouable() ? '' : 'non ', $this->getNommenclatureEtat()->getNom());
+    }
+
+    public function getDetail()
+    {
+        return sprintf('%s %s - %s - %s - %s', 
+            $this->getDate()->format('d/m/Y'), 
+            $this->getJouable() ? 'jouable' : 'non jouable', 
+            $this->getNommenclatureEtat()->getNom(),
+            $this->getPiecesManquantes() ? 'non complet' : 'complet',
+            $this->getCommentaire()
+        );
+    }
+
+    public function getStringInventaire()
+    {
+        return sprintf('%s', $this->getJeu()->getNomJeuNomProprietaire());
+    }
+
+    /**
+     * Set flagInventaire
+     *
+     * @param boolean $flagInventaire
+     *
+     * @return EtatJeu
+     */
+    public function setFlagInventaire($flagInventaire)
+    {
+        $this->flagInventaire = $flagInventaire;
+
+        return $this;
+    }
+
+    /**
+     * Get flagInventaire
+     *
+     * @return boolean
+     */
+    public function getFlagInventaire()
+    {
+        return $this->flagInventaire;
+    }
+
+    /**
+     * Set inventaire
+     *
+     * @param \Dglas\JeuBundle\Entity\Inventaire $inventaire
+     *
+     * @return EtatJeu
+     */
+    public function setInventaire(\Dglas\JeuBundle\Entity\Inventaire $inventaire)
+    {
+        $this->inventaire = $inventaire;
+
+        return $this;
+    }
+
+    /**
+     * Get inventaire
+     *
+     * @return \Dglas\JeuBundle\Entity\Inventaire
+     */
+    public function getInventaire()
+    {
+        return $this->inventaire;
     }
 }

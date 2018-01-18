@@ -101,6 +101,7 @@ sonata_admin:
                     items:
                         - dglas_jeu.admin.jeu
                         - dglas_jeu.admin.mouvement_jeu
+                        - dglas_jeu.admin.inventaire
                 dglas.caisse.admin.finance:
                     label: 'Finances'
                     items:

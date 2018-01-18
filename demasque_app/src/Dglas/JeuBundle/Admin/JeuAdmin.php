@@ -22,8 +22,8 @@ class JeuAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('idPhysique')
-            ->add('nommenclatureJeu.nom')
-            ->add('proprietaire.nom');
+            ->add('nommenclatureJeu.nom', null, ['label' => 'Nom'])
+            ->add('proprietaire.nom', null, ['label' => 'Proprietaire']);
     }
 
     /**
@@ -33,13 +33,13 @@ class JeuAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('idPhysique')
-            ->add('nommenclatureJeu.nom')
-            ->add('proprietaire.nom')
+            ->add('nommenclatureJeu.nom', null, ['label' => 'Nom'])
+            ->add('proprietaire.nom', null, ['label' => 'Proprietaire'])
+            ->add('etatString', null, ['label' => 'Etat'])
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
                     'edit' => array(),
-                    'delete' => array(),
                 ),
             ));
     }
@@ -52,7 +52,8 @@ class JeuAdmin extends AbstractAdmin
         $formMapper
             ->add('nommenclatureJeu', EntityType::class, array(
                 'class' => 'Dglas\JeuBundle\Entity\NommenclatureJeu',
-                'choice_label' => 'nom'
+                'choice_label' => 'nom',
+                'label' => 'Nom'
             ))
             ->add('idPhysique')
             ->add('proprietaire', EntityType::class, array(
@@ -61,6 +62,7 @@ class JeuAdmin extends AbstractAdmin
             ))
             ->add('etatJeu', CollectionType::class, array(
                 'entry_type' => EtatJeuType::class,
+                'label' => 'Etat',
                 'entry_options' => array(
                     'attr' => array('class' => 'Dglas\JeuBundle\Entity\EtatJeu')
                 ),
@@ -75,12 +77,14 @@ class JeuAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('idPhysique')
-            ->add('nommenclatureJeu.nom')
-            ->add('proprietaire.nom')
+            ->add('nommenclatureJeu.nom', null, ['label' => 'Nom'])
+            ->add('proprietaire.nom', null, ['label' => 'Proprietaire'])
             ->add('etatJeu', null, array(
+                    'label' => 'Historique des états',
                     'associated_property' => 'stringDateEtat')
             )
             ->add('mouvementJeu', null, array(
+                'label' => 'Historique des mouvements',
                 'associated_property' => 'stringInfoMouvement')
             );
     }

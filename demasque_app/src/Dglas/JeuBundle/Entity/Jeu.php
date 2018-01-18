@@ -2,8 +2,8 @@
 
 namespace Dglas\JeuBundle\Entity;
 
-use Dglas\JeuBundle\Entity\EtatJeu;
 use Doctrine\Common\Collections\ArrayCollection;
+use Dglas\JeuBundle\Entity\EtatJeu;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -163,6 +163,29 @@ class Jeu
     }
 
     /**
+     * Get last etatJeu
+     *
+     * @return EtatJeu
+     */
+    public function getLastEtatJeu()
+    {
+        $dateMax = null;
+        $lastEtat = null;
+        foreach ($this->etatJeu as $etat) {
+            if ($dateMax == null) {
+                $dateMax = $etat->getDate();
+                $lastEtat = $etat;
+                continue;
+            }
+            if ($dateMax < $etat->getDate()) {
+                $dateMax = $etat->getDate();
+                $lastEtat = $etat;
+            }
+        }
+        return $lastEtat;
+    }
+
+    /**
      * @param \Dglas\JeuBundle\Entity\EtatJeu[]|ArrayCollection $etatJeu
      * @return Jeu
      */
@@ -175,6 +198,21 @@ class Jeu
     public function getNomJeuNomProprietaire()
     {
         return sprintf('%s %s - %s', str_pad($this->idPhysique, 3, '0', STR_PAD_LEFT), $this->getNommenclatureJeu()->getNom(), $this->getProprietaire()->getNom());
+    }
+
+    /**
+     * @return String
+     */
+    public function getEtatString()
+    {
+        $lastEtat = $this->getLastEtatJeu();
+        if ($lastEtat == null) {
+            return '';
+        }
+        if ($lastEtat->getFlagInventaire()) {
+            return sprintf('Inventaire à valider'); 
+        }
+        return sprintf('%s', $lastEtat->getStringEtatJouable());
     }
 
     /**

@@ -14,7 +14,6 @@ class JeuType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('nommenclatureJeu')->add('proprietaire')->add('etatJeu');
-        
     }
     
     /**

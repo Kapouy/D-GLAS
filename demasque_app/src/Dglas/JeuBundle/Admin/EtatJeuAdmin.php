@@ -20,7 +20,7 @@ class EtatJeuAdmin extends AbstractAdmin
         $datagridMapper
 
             ->add('date')
-            ->add('nommenclatureEtat.nom')
+            ->add('nommenclatureEtat.nom', null, ['label' => 'Etat'])
             ->add('commentaire')
             ->add('jouable')
             ->add('piecesManquantes')
@@ -35,7 +35,7 @@ class EtatJeuAdmin extends AbstractAdmin
         $listMapper
 
             ->add('date')
-            ->add('nommenclatureEtat.nom')
+            ->add('nommenclatureEtat.nom', null, ['label' => 'Etat'])
             ->add('jouable')
             ->add('piecesManquantes')
             ->add('commentaire')
@@ -59,20 +59,21 @@ class EtatJeuAdmin extends AbstractAdmin
             'widget' => 'single_text',
             'format' => 'dd/MM/yyyy',
             'data' => new \DateTime(),
+            'disabled' => true,
         ))
         ->add('commentaire')
-        ->add('jeu', 'entity', array(
+        ->add('jeu', null, array(
             'class' => 'Dglas\JeuBundle\Entity\Jeu',
             'choice_label' => 'nomJeuNomProprietaire',
+            'disabled' => true,
         ))
         ->add('nommenclatureEtat', 'entity', array(
             'class' => 'Dglas\JeuBundle\Entity\NommenclatureEtat',
             'choice_label' => 'nom',
         ))
-        ->add('jouable', CheckboxType::class, array(
-                'data' => true,
-            ))
-        ->add('piecesManquantes');
+        ->add('jouable')
+        ->add('piecesManquantes')
+        ->add('flagInventaire', null, ['label' => 'Case à decocher pour valider l\'inventaire']);
         
     }
 

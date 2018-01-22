@@ -192,6 +192,9 @@ class JeuAdminExtensionInterface implements AdminExtensionInterface
                 if ($etatJeu->getJeu() == null) {
                     $etatJeu->setJeu($object);
                 }
+                if ($etatJeu->getDate() == null) {
+                    $etatJeu->setDate(new \DateTime());
+                }
             }
         }
     }

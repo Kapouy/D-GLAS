@@ -113,29 +113,4 @@ class Inventaire
         return $this->etatJeu;
     }
 
-    /**
-     * Get etatJeu
-     *
-     * @return \Doctrine\Common\Collections\Collection|EtatJeu[]
-     */
-    public function getEtatJeuValider()
-    {
-
-        $avalider = $this->etatJeu->filter(function ($value, $key) {
-            return true;
-        });
-
-        return $avalider->all();
-
-        $listRetour = new \Doctrine\Common\Collections\ArrayCollection();
-        foreach ($this->etatJeu as $etat) {
-            if ($etat->getFlagInventaire()) {
-                $listRetour[] = $etat;
-            }
-        }
-        return $listRetour;
-
-
-
-    }
 }

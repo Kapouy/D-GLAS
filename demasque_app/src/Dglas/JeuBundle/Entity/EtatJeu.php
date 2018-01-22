@@ -245,6 +245,11 @@ class EtatJeu
         return sprintf('%s jouable - %s', $this->getJouable() ? '' : 'non ', $this->getNommenclatureEtat()->getNom());
     }
 
+    public function getStringDateEtatJouable()
+    {
+        return sprintf('%s  %s jouable - %s', $this->getDate()->format('Y-M-d'), $this->getJouable() ? '' : 'non ', $this->getNommenclatureEtat()->getNom());
+    }
+
     public function getDetail()
     {
         return sprintf('%s %s - %s - %s - %s', 
@@ -258,7 +263,33 @@ class EtatJeu
 
     public function getStringInventaire()
     {
-        return sprintf('%s', $this->getJeu()->getNomJeuNomProprietaire());
+        if ($this->getFlagInventaire()) {
+            return sprintf('Inventaire à valider ----- %s' , $this->getJeu()->getNomJeuNomProprietaire()); 
+        }
+        return sprintf('--------------------------------%s', $this->getJeu()->getNomJeuNomProprietaire());
+    }
+
+        /**
+     * @return String
+     */
+    public function getEtatString()
+    {
+        if ($this->getFlagInventaire()) {
+            return sprintf('Inventaire à valider'); 
+        }
+        return sprintf('%s', $this->getStringEtatJouable());
+    }
+
+    
+        /**
+     * @return String
+     */
+    public function getDateEtatString()
+    {
+        if ($this->getFlagInventaire()) {
+            return sprintf('Inventaire à valider'); 
+        }
+        return sprintf('%s', $this->getStringDateEtatJouable());
     }
 
     /**

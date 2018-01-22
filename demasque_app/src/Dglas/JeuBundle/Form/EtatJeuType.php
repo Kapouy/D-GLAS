@@ -24,14 +24,14 @@ class EtatJeuType extends AbstractType
             function (FormEvent $event) {
                 $form = $event->getForm();
                 $data = $event->getData();
-                if ($data == null || $data->getJeu() == null) {
+                if ($data == null || $data->getJeu() == null || $data->getJeu()->getId() == null) {
                     $form 
-                    ->add('date', DateType::class, array(
-                        'widget' => 'single_text',
-                        'format' => 'dd/MM/yyyy',
-                        'data' => new \DateTime(),
-                        'disabled' => true,
-                    ))
+                    // ->add('date', DateType::class, array(
+                    //     'widget' => 'single_text',
+                    //     'format' => 'dd/MM/yyyy',
+                    //     // 'data' => new \DateTime(),
+                    //     'disabled' => true,
+                    // ))
                     ->add('commentaire')
                     ->add('nommenclatureEtat', 'entity', array(
                         'class' => 'Dglas\JeuBundle\Entity\NommenclatureEtat',
@@ -41,7 +41,7 @@ class EtatJeuType extends AbstractType
                     ->add('piecesManquantes');
                 } else {
                     if (! $data->getFlagInventaire()) {
-                        $form->add('detail', null, array('disabled' => true, 'label' => 'Historique'));
+                        $form->add('detail', 'textarea', array('disabled' => true, 'label' => false));
                     } else {
                         $form 
                         ->add('date', DateType::class, array(
@@ -54,7 +54,7 @@ class EtatJeuType extends AbstractType
                             'choice_label' => 'nomJeuNomProprietaire',
                             'disabled' => true,
                         ))
-                        ->add('commentaire')
+                        ->add('commentaire', 'textarea')
                         ->add('nommenclatureEtat', 'entity', array(
                             'class' => 'Dglas\JeuBundle\Entity\NommenclatureEtat',
                             'choice_label' => 'nom',

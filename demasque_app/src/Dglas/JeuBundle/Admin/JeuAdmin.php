@@ -15,6 +15,18 @@ use Dglas\JeuBundle\Form\EtatJeuType;
 
 class JeuAdmin extends AbstractAdmin
 {
+    protected $datagridValues = [
+
+        // display the first page (default = 1)
+        '_page' => 1,
+
+        // reverse order (default = 'ASC')
+        '_sort_order' => 'DESC',
+
+        // name of the ordered field (default = the model's id field, if any)
+        '_sort_by' => 'idPhysique',
+    ];
+
     /**
      * @param DatagridMapper $datagridMapper
      */
@@ -22,7 +34,8 @@ class JeuAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('idPhysique')
-            ->add('nommenclatureJeu.nom', null, ['label' => 'Nom'])
+            ->add('nommenclatureJeu.nom', null, ['label' => 'Nom', 'show_filter' => true])
+            ->add('etatJeu.flagInventaire', null, ['label' => 'En attente de validation'])
             ->add('proprietaire.nom', null, ['label' => 'Proprietaire']);
     }
 
@@ -50,24 +63,30 @@ class JeuAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('nommenclatureJeu', EntityType::class, array(
-                'class' => 'Dglas\JeuBundle\Entity\NommenclatureJeu',
-                'choice_label' => 'nom',
-                'label' => 'Nom'
-            ))
-            ->add('idPhysique')
-            ->add('proprietaire', EntityType::class, array(
-                'class' => 'Dglas\JeuBundle\Entity\Proprietaire',
-                'choice_label' => 'nom',
-            ))
-            ->add('etatJeu', CollectionType::class, array(
-                'entry_type' => EtatJeuType::class,
-                'label' => 'Etat',
-                'entry_options' => array(
-                    'attr' => array('class' => 'Dglas\JeuBundle\Entity\EtatJeu')
-                ),
-                'allow_add' => true
-            ));
+            ->with('Boite de jeu', ['class' => 'col-md-4'])
+                ->add('nommenclatureJeu', 'sonata_type_model', [
+                    'class' => 'Dglas\JeuBundle\Entity\NommenclatureJeu',
+                    'property' => 'nom',
+                    'label' => 'Nom'
+                ])
+                ->add('idPhysique')
+                ->add('proprietaire', 'sonata_type_model', [
+                    'class' => 'Dglas\JeuBundle\Entity\Proprietaire',
+                    'property' => 'nom',
+                    'label' => 'Nom'
+                ])
+            ->end()
+            ->with('Etats', ['class' => 'col-md-6'])
+                ->add('etatJeu', CollectionType::class, array(
+                    'entry_type' => EtatJeuType::class,
+                    'label' => 'Etat',
+                    'entry_options' => array(
+                        'attr' => array('class' => 'Dglas\JeuBundle\Entity\EtatJeu')
+                    ),
+                    'allow_add' => true
+                ))
+            ->end()
+            ;
     }
 
     /**
@@ -76,16 +95,25 @@ class JeuAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
+        ->with('Boite de jeu', ['class'=>'col-md-4'])
             ->add('idPhysique')
             ->add('nommenclatureJeu.nom', null, ['label' => 'Nom'])
             ->add('proprietaire.nom', null, ['label' => 'Proprietaire'])
-            ->add('etatJeu', null, array(
-                    'label' => 'Historique des états',
-                    'associated_property' => 'stringDateEtat')
-            )
+        ->end()
+        
+        ->with('Historique des états', ['class'=>'col-md-6'])
+            ->add('etatJeu', 'sonata_type_model', [
+                'class' => 'AppBundle\Entity\EtatJeu',
+                'associated_property' => 'dateEtatString'
+            ])
+        ->end()
+
+        ->with('Historique des mouvements', ['class'=>'col-md-6'])
             ->add('mouvementJeu', null, array(
-                'label' => 'Historique des mouvements',
+                'label' => 'Mouvements',
                 'associated_property' => 'stringInfoMouvement')
-            );
+            )
+        ->end()
+        ;
     }
 }

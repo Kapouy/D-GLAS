@@ -206,13 +206,7 @@ class Jeu
     public function getEtatString()
     {
         $lastEtat = $this->getLastEtatJeu();
-        if ($lastEtat == null) {
-            return '';
-        }
-        if ($lastEtat->getFlagInventaire()) {
-            return sprintf('Inventaire à valider'); 
-        }
-        return sprintf('%s', $lastEtat->getStringEtatJouable());
+        return $lastEtat->getEtatString();
     }
 
     /**

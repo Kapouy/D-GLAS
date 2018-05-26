@@ -10,6 +10,7 @@ namespace Dglas\JeuBundle\Admin\Extension;
 
 
 use Dglas\JeuBundle\Entity\EtatJeu;
+use Dglas\JeuBundle\Entity\Inventaire;
 use Dglas\JeuBundle\Entity\Jeu;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Menu\ItemInterface as MenuItemInterface;
@@ -23,7 +24,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\CoreBundle\Validator\ErrorElement;
 
-class JeuAdminExtensionInterface implements AdminExtensionInterface
+class InventaireAdminExtensionInterface implements AdminExtensionInterface
 {
     /**
      * @var EntityManagerInterface
@@ -36,7 +37,7 @@ class JeuAdminExtensionInterface implements AdminExtensionInterface
     protected $etats;
 
     /**
-     * JeuAdminExtensionInterface constructor.
+     * InventaireAdminExtensionInterface constructor.
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(EntityManagerInterface $entityManager)
@@ -137,26 +138,10 @@ class JeuAdminExtensionInterface implements AdminExtensionInterface
      * Get a chance to modify a newly created instance.
      *
      * @param AdminInterface $admin
-     * @param Jeu $object
+     * @param Inventaire $object
      */
     public function alterNewInstance(AdminInterface $admin, $object)
-    {
-        $etatJeu = new EtatJeu();
-        $etatJeu->setDate(new \DateTime())
-            ->setJouable(true)
-            ->setNommenclatureEtat($this->entityManager->getRepository('DglasJeuBundle:NommenclatureEtat')->find(10))
-            ->setJeu($object);
-
-        $object->addEtatJeu($etatJeu);
-
-        $repo = $this->entityManager->getRepository(Jeu::class);
-        
-        $query = $repo->createQueryBuilder('s');
-        $query->select('MAX(s.idPhysique)+1 as valeur');
-        $newId = $query->getQuery()->getResult();
-
-        $object->setIdPhysique($newId[0]['valeur']);
-        
+    {   
     }
 
     /**
@@ -187,16 +172,6 @@ class JeuAdminExtensionInterface implements AdminExtensionInterface
      */
     public function preUpdate(AdminInterface $admin, $object)
     {
-        if ($object->getEtatJeu()) {
-            foreach($object->getEtatJeu() as $etatJeu) {
-                if ($etatJeu->getJeu() == null) {
-                    $etatJeu->setJeu($object);
-                }
-                if ($etatJeu->getDate() == null) {
-                    $etatJeu->setDate(new \DateTime());
-                }
-            }
-        }
     }
 
     /**
@@ -209,23 +184,56 @@ class JeuAdminExtensionInterface implements AdminExtensionInterface
 
     /**
      * @param AdminInterface $admin
-     * @param Jeu $object
+     * @param Inventaire $object
      */
     public function prePersist(AdminInterface $admin, $object)
     {
-        if ($object->getEtatJeu()) {
-            foreach($object->getEtatJeu() as $etatJeu) {
-                $etatJeu->setJeu($object);
-            }
-        }
     }
 
     /**
      * @param AdminInterface $admin
-     * @param Jeu $object
+     * @param Inventaire $object
      */
     public function postPersist(AdminInterface $admin, $object)
     {
+        $repoJeu = $this->entityManager->getRepository(Jeu::class);
+        $listJeux = $repoJeu->findAll();
+
+        $etatDefaut = $this->entityManager->getRepository('DglasJeuBundle:NommenclatureEtat')->find(10);
+
+        foreach ($listJeux as $boite) {
+            $etatJeu = new EtatJeu();
+
+            $precedentEtat = $boite->getLastEtatJeu();
+
+            $etatJeu->setDate(new \DateTime())
+            ->setFlagInventaire(true)
+            ->setJeu($boite)
+            ->setInventaire($object);
+
+            if ($precedentEtat == null) {
+                $etatJeu
+                ->setJouable(true)
+                ->setPiecesManquantes(false)
+                ->setNommenclatureEtat($etatDefaut)
+                ->setCommentaire('Inventaire')
+                ;
+            } else {
+                $etatJeu
+                ->setJouable($precedentEtat->getJouable())
+                ->setPiecesManquantes($precedentEtat->getPiecesManquantes())
+                ->setNommenclatureEtat($precedentEtat->getNommenclatureEtat())
+                ->setCommentaire('Inventaire - '.$precedentEtat->getCommentaire())
+                ;
+            }
+
+            $boite->addEtatJeu($etatJeu);
+            $this->entityManager->persist($etatJeu);
+            
+            $object->addEtatJeu($etatJeu);
+        }
+        $this->entityManager->persist($object);
+        $this->entityManager->flush();
     }
 
     /**

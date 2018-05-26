@@ -33,6 +33,10 @@ services:
         class: Dglas\JeuBundle\Admin\Extension\JeuAdminExtensionInterface
         arguments: ["@sonata.admin.entity_manager"]
 
+    dglas_jeu.admin.extensions.inventaire:
+        class: Dglas\JeuBundle\Admin\Extension\InventaireAdminExtensionInterface
+        arguments: ["@sonata.admin.entity_manager"]
+
     dglas_jeu.admin.jeu:
         class: Dglas\JeuBundle\Admin\JeuAdmin
         arguments: [~, Dglas\JeuBundle\Entity\Jeu, SonataAdminBundle:CRUD]
@@ -71,3 +75,14 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: Animateur }
         public: true
+
+    dglas_jeu.admin.inventaire:
+        class: Dglas\JeuBundle\Admin\InventaireAdmin
+        arguments: [~, Dglas\JeuBundle\Entity\Inventaire, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Inventaire }
+        public: true
+        calls:
+            - method: "addExtension"
+              arguments:
+                - "@dglas_jeu.admin.extensions.inventaire"

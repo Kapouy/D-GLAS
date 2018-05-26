@@ -18,7 +18,6 @@ class MouvementJeuAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
             ->add('dateMouvement')
             ->add('gestionnaireJeu.nom')
             ->add('dateRetourPrevu')
@@ -32,12 +31,11 @@ class MouvementJeuAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id')
-            ->add('dateMouvement')
-            ->add('gestionnaireJeu.nom')
-            ->add('dateRetourPrevu')
-            ->add('destination.nom')
-            ->add('commentaire')
+            ->add('dateMouvement', null, ['label' => 'Date'])
+            ->add('gestionnaireJeu.nom', null, ['label' => 'Responsable'])
+            ->add('dateRetourPrevu', null, ['label' => 'Date de retour prevue'])
+            ->add('destination.nom', null, ['label' => 'Destination'])
+            ->add('commentaire', null, ['label' => 'Commentaire'])
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -90,12 +88,12 @@ class MouvementJeuAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id')
-            ->add('dateMouvement')
-            ->add('gestionnaireJeu.nom')
-            ->add('dateRetourPrevu')
-            ->add('destination.nom')
+            ->add('dateMouvement', null, ['label' => 'Date'])
+            ->add('gestionnaireJeu.nom', null, ['label' => 'Responsable'])
+            ->add('dateRetourPrevu', null, ['label' => 'Date de retour prevue'])
+            ->add('destination.nom', null, ['label' => 'Destination'])
             ->add('jeux', null, array(
+                    'label' => 'Jeux deplacés',
                     'associated_property' => 'nomJeuNomProprietaire')
             );
     }

@@ -96,11 +96,12 @@ sonata_admin:
     title:      'De-Masque'
     dashboard:
         groups:
-                dglas.caisse.admin.jeux:
+                dglas.admin.jeux:
                     label: 'Jeux'
                     items:
                         - dglas_jeu.admin.jeu
                         - dglas_jeu.admin.mouvement_jeu
+                        - dglas_jeu.admin.inventaire
                 dglas.caisse.admin.finance:
                     label: 'Finances'
                     items:
@@ -113,6 +114,11 @@ sonata_admin:
                         - dglas_jeu.admin.proprietaire
                         - dglas_jeu.admin.gestionnaire_jeu
                         - dglas_jeu.admin.lieu
+                dglas.admin.utilisateur:
+                    label : 'Utilisateurs'
+                    items:
+                        - sonata.user.admin.user
+                        - sonata.user.admin.group
     security:
         handler: sonata.admin.security.handler.role
 

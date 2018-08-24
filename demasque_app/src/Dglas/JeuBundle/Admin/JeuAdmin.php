@@ -32,11 +32,16 @@ class JeuAdmin extends AbstractAdmin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+			$em = $this->modelManager->getEntityManager('Dglas\\JeuBundle\\Entity\\NommenclatureEtat');
+			$etatChoices = $em->getRepository('DglasJeuBundle:NommenclatureEtat')->getChoices();
+			
         $datagridMapper
-            ->add('idPhysique')
+            ->add('idPhysique', null, ['show_filter' => true])
             ->add('nommenclatureJeu.nom', null, ['label' => 'Nom', 'show_filter' => true])
             ->add('etatJeu.flagInventaire', null, ['label' => 'En attente de validation'])
+			->add('etatJeu.nommenclatureEtat.id', 'doctrine_orm_choice', array('label' => 'Etat'), 'choice', array('choices' => $etatChoices))
             ->add('proprietaire.nom', null, ['label' => 'Proprietaire']);
+			
     }
 
     /**
@@ -49,6 +54,7 @@ class JeuAdmin extends AbstractAdmin
             ->add('nommenclatureJeu.nom', null, ['label' => 'Nom'])
             ->add('proprietaire.nom', null, ['label' => 'Proprietaire'])
             ->add('etatString', null, ['label' => 'Etat'])
+			->add('lastEtatJeu.nommenclatureEtat.nom', null, ['label'=>'Nom Etat'])
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),

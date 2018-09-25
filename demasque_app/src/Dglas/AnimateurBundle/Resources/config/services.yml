@@ -2,3 +2,9 @@ services:
 #    dglas_animateur.example:
 #        class: Dglas\AnimateurBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+    dglas_animateur.admin.animateur:
+        class: Dglas\AnimateurBundle\Admin\AnimateurAdmin
+        arguments: [~, Dglas\AnimateurBundle\Entity\Animateur, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Animateur }
+        public: true

@@ -1,0 +1,3 @@
+dglas_animateur_homepage:
+    path:     /
+    defaults: { _controller: DglasAnimateurBundle:Default:index }

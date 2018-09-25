@@ -1,3 +1,7 @@
+dglas_animateur:
+    resource: "@DglasAnimateurBundle/Resources/config/routing.yml"
+    prefix:   /
+
 dglas_courses:
     resource: "@DglasCoursesBundle/Controller/"
     type:     annotation

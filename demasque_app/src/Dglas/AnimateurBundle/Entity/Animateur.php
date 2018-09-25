@@ -3,6 +3,7 @@
 namespace Dglas\AnimateurBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Application\Sonata\UserBundle\Entity\User;
 
 /**
  * Animateur
@@ -27,6 +28,14 @@ class Animateur
      * @ORM\Column(name="date_arrivee", type="datetime")
      */
     private $dateArrivee;
+
+    /**
+     * @var \User
+     * 
+     * @ORM\OneToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
 
     /**
@@ -62,5 +71,29 @@ class Animateur
     {
         return $this->dateArrivee;
     }
-}
 
+    /**
+     * Set user
+     *
+     * @param \User $user
+     *
+     * @return User
+     */
+    public function setUser($user)
+    {
+        $this->user= $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+}

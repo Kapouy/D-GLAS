@@ -32,12 +32,56 @@ class JeuAdmin extends AbstractAdmin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        $em = $this->modelManager->getEntityManager('Dglas\\JeuBundle\\Entity\\NommenclatureEtat');
+			$etatChoices = $em->getRepository('DglasJeuBundle:NommenclatureEtat')->getChoices();
+		$em = $this->modelManager->getEntityManager('Dglas\\JeuBundle\\Entity\\Lieu');
+			$lieuChoices = $em->getRepository('DglasJeuBundle:Lieu')->getChoices();
+			
+			
         $datagridMapper
-            ->add('idPhysique')
+            ->add('idPhysique', null, ['show_filter' => true])
             ->add('nommenclatureJeu.nom', null, ['label' => 'Nom', 'show_filter' => true])
             ->add('etatJeu.flagInventaire', null, ['label' => 'En attente de validation'])
+			->add('etatJeu.nommenclatureEtat.id', 'doctrine_orm_callback', 
+				[
+				'label' => 'Etat',
+				'show_filter' => true,
+				'callback' => function($queryBuilder, $alias, $field, $value) {
+					if ($value['value'] != '') {
+						$repo = $this->modelManager->getEntityManager('Dglas\\JeuBundle\\Entity\\EtatJeu')->getRepository('DglasJeuBundle:EtatJeu');
+			
+						$query = $repo->createQueryBuilder('s');
+						$query->select('MAX(s.date)')
+						->where('s.jeu = o.id');
+			
+						$queryBuilder->andWhere('s_nommenclatureEtat.id = :state');
+						$queryBuilder->andWhere('s_etatJeu.date = ('.$query->getDql().')');
+						$queryBuilder->setParameter('state', $value['value']);
+					}
+				}
+				] 
+				, 'choice', array('choices' => $etatChoices))
+			->add('mouvementJeu.destination.id', 'doctrine_orm_callback', 
+				[
+				'label' => 'Lieu',
+				'show_filter' => true,
+				'callback' => function($queryBuilder, $alias, $field, $value) {
+					if ($value['value'] != '') {
+						$repo = $this->modelManager->getEntityManager('Dglas\\JeuBundle\\Entity\\MouvementJeu')->getRepository('DglasJeuBundle:MouvementJeu');
+			
+						$query = $repo->createQueryBuilder('s');
+						$query->select('MAX(s.dateMouvement)')
+						->where('o member of s.jeux');
+			
+						$queryBuilder->andWhere('s_mouvementJeu_destination.id = :state and s_mouvementJeu.dateMouvement = ('.$query->getDql().')');
+						$queryBuilder->setParameter('state', $value['value']);
+					}
+				}
+				] 
+				, 'choice', array('choices' => $lieuChoices))
             ->add('proprietaire.nom', null, ['label' => 'Proprietaire']);
-    }
+
+ }
 
     /**
      * @param ListMapper $listMapper
@@ -49,6 +93,7 @@ class JeuAdmin extends AbstractAdmin
             ->add('nommenclatureJeu.nom', null, ['label' => 'Nom'])
             ->add('proprietaire.nom', null, ['label' => 'Proprietaire'])
             ->add('etatString', null, ['label' => 'Etat'])
+			->add('getMouvementString', null, ['label' => 'Lieu'])
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -116,4 +161,17 @@ class JeuAdmin extends AbstractAdmin
         ->end()
         ;
     }
+
+public function getExportFields()
+	{
+		return ['idPhysique', 'nommenclatureJeu.nom', 'proprietaire.nom', 'lastEtatJeu.stringDateEtat'];
+	}
+	
+	public function getExportFormats()
+    {
+        return array(
+            'json', 'xml', 'csv', 'xls'
+        );
+    }
+
 }

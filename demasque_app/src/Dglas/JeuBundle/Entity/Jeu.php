@@ -127,6 +127,12 @@ class Jeu
     {
         $this->etatJeu = new ArrayCollection();
     }
+	
+	public function __toString() {
+   if ($this->nommenclatureJeu == null) {
+ return '' ; }
+		return $this->idPhysique.' '.$this->nommenclatureJeu->getNom();
+}
 
     /**
      * Add etatJeu
@@ -184,6 +190,29 @@ class Jeu
         }
         return $lastEtat;
     }
+		
+    /**
+     * Get last etatJeu
+     *
+     * @return EtatJeu
+     */
+    public function getLastMouvement()
+    {
+        $dateMax = null;
+        $lastMvt = null;
+        foreach ($this->mouvementJeu as $mvt) {
+            if ($dateMax == null) {
+                $dateMax = $mvt->getDateMouvement();
+                $lastMvt = $mvt;
+                continue;
+            }
+            if ($dateMax < $mvt->getDateMouvement()) {
+                $dateMax = $mvt->getDateMouvement();
+                $lastMvt = $mvt;
+            }
+        }
+        return $lastMvt;
+    }
 
     /**
      * @param \Dglas\JeuBundle\Entity\EtatJeu[]|ArrayCollection $etatJeu
@@ -206,7 +235,22 @@ class Jeu
     public function getEtatString()
     {
         $lastEtat = $this->getLastEtatJeu();
+        if ($lastEtat == null) {
+            return 'Sans état';
+        }
         return $lastEtat->getEtatString();
+    }
+	
+	/**
+     * @return String
+     */
+    public function getMouvementString()
+    {
+        $lastMvt = $this->getLastMouvement();
+        if ($lastMvt == null) {
+            return 'Sans lieu';
+        }
+        return $lastMvt->getDestination()->getNom();
     }
 
     /**

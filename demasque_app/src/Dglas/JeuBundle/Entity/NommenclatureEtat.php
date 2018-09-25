@@ -34,6 +34,13 @@ class NommenclatureEtat
      * @ORM\Column(name="ordre", type="integer")
      */
     private $ordre;
+	
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="inventoriable", type="boolean")
+     */
+    private $inventoriable  = true;
 
     /**
      * Get id
@@ -43,6 +50,16 @@ class NommenclatureEtat
     public function getId()
     {
         return $this->id;
+    }
+	
+	/**
+     * Get inventoriable
+     *
+     * @return boolean
+     */
+    public function isInventoriable()
+    {
+        return $this->inventoriable;
     }
 
     /**
@@ -99,5 +116,12 @@ class NommenclatureEtat
     {
         
     }
+
+	public function __toString() {
+if ($this->nom == null) {
+return '';}
+		return $this->nom;
+	}
+
     
 }

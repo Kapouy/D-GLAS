@@ -1,0 +1,24 @@
+jeu_index:
+    path:     /
+    defaults: { _controller: "DglasJeuBundle:Jeu:index" }
+    methods:  GET
+
+jeu_show:
+    path:     /{id}/show
+    defaults: { _controller: "DglasJeuBundle:Jeu:show" }
+    methods:  GET
+
+jeu_new:
+    path:     /new
+    defaults: { _controller: "DglasJeuBundle:Jeu:new" }
+    methods:  [GET, POST]
+
+jeu_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "DglasJeuBundle:Jeu:edit" }
+    methods:  [GET, POST]
+
+jeu_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "DglasJeuBundle:Jeu:delete" }
+    methods:  DELETE

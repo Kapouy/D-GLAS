@@ -34,6 +34,13 @@ class NommenclatureEtat
      * @ORM\Column(name="ordre", type="integer")
      */
     private $ordre;
+	
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="inventoriable", type="boolean")
+     */
+    private $inventoriable  = true;
 
     /**
      * Get id

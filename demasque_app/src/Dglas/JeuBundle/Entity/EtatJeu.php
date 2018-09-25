@@ -235,6 +235,11 @@ class EtatJeu
         return $this->nommenclatureEtat;
     }
 
+public function getNom()
+    {
+        return $this->getNommenclatureEtat()->getNom();
+    }
+
     public function getStringDateEtat()
     {
         return sprintf('%s  %s', $this->getDate()->format('Y-M-d'), $this->getNommenclatureEtat()->getNom());

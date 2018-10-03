@@ -10,4 +10,44 @@ namespace Dglas\JeuBundle\Repository;
  */
 class JeuRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function rechercherListeInventaire() {
+
+		return $this->getEntityManager()
+			->createQuery('
+				SELECT j
+				FROM DglasJeuBundle:Jeu j, DglasJeuBundle:EtatJeu etat, DglasJeuBundle:NommenclatureEtat nommencEtat
+				WHERE j.id = etat.jeu
+				and etat.nommenclatureEtat = nommencEtat.id
+				and nommencEtat.inventoriable = true
+				and etat.date = (SELECT max(e.date) FROM DglasJeuBundle:EtatJeu e WHERE j.id = etat.jeu)
+			')
+			->getResult();
+	}
+		
+	public function test() {
+
+
+		//return $this->getEntityManager()
+		//->createQueryBuilder()
+		//->select('n')
+		//->from('DglasJeuBundle:Jeu', 'j')
+		//->innerJoin('j.nommenclatureJeu', 'n')
+		//->getQuery()
+		//->getResult();
+
+		//return $this->getEntityManager()
+		//	->createQuery('
+		//		SELECT j.idPhysique, n.nom
+		//		FROM DglasJeuBundle:Jeu j JOIN j.nommenclatureJeu n
+		//	')
+		//	->getResult();
+
+		return $this->getEntityManager()
+			->createQuery('
+				SELECT j.idPhysique, n as nommenclatureJeu
+				FROM DglasJeuBundle:Jeu j, DglasJeuBundle:NommenclatureJeu n
+				WHERE j.nommenclatureJeu = n.id
+			')
+			->getResult();
+	}
 }

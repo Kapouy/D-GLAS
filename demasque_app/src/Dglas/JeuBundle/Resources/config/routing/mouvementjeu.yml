@@ -1,0 +1,24 @@
+mouvement_index:
+    path:     /
+    defaults: { _controller: "DglasJeuBundle:MouvementJeu:index" }
+    methods:  GET
+
+mouvement_show:
+    path:     /{id}/show
+    defaults: { _controller: "DglasJeuBundle:MouvementJeu:show" }
+    methods:  GET
+
+mouvement_new:
+    path:     /new
+    defaults: { _controller: "DglasJeuBundle:MouvementJeu:new" }
+    methods:  [GET, POST]
+
+mouvement_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "DglasJeuBundle:MouvementJeu:edit" }
+    methods:  [GET, POST]
+
+mouvement_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "DglasJeuBundle:MouvementJeu:delete" }
+    methods:  DELETE

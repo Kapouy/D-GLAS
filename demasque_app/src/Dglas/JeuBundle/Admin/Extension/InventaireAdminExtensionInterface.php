@@ -198,7 +198,10 @@ class InventaireAdminExtensionInterface implements AdminExtensionInterface
     {
         $repoJeu = $this->entityManager->getRepository(Jeu::class);
         $listJeux = $repoJeu->findAll();
+		// $listJeux = $repoJeu->rechercherListeInventaire();	
 
+			echo sizeof($listJeux);
+		
         $etatDefaut = $this->entityManager->getRepository('DglasJeuBundle:NommenclatureEtat')->find(10);
 
         foreach ($listJeux as $boite) {
@@ -227,10 +230,12 @@ class InventaireAdminExtensionInterface implements AdminExtensionInterface
                 ;
             }
 
-            $boite->addEtatJeu($etatJeu);
-            $this->entityManager->persist($etatJeu);
+			if ($precedentEtat == null || $precedentEtat->getNommenclatureEtat()->isInventoriable()) {
+				$boite->addEtatJeu($etatJeu);
+				$this->entityManager->persist($etatJeu);
             
-            $object->addEtatJeu($etatJeu);
+				$object->addEtatJeu($etatJeu);				
+			}
         }
         $this->entityManager->persist($object);
         $this->entityManager->flush();

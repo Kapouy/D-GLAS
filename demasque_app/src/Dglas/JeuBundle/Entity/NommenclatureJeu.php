@@ -62,4 +62,9 @@ class NommenclatureJeu
         return $this->nom;
     }
 
+	public function __toString() {
+if ($this->nom == null) {
+return '';}
+		return $this->nom;
+	}
 }

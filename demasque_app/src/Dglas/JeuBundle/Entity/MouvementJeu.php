@@ -31,7 +31,7 @@ class MouvementJeu
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateRetourPrevu", type="datetime")
+     * @ORM\Column(name="dateRetourPrevu", type="datetime", nullable=true)
      */
     private $dateRetourPrevu;
 
@@ -259,6 +259,8 @@ class MouvementJeu
     {
         $this->jeux = new \Doctrine\Common\Collections\ArrayCollection();
         $this->etatJeux = new \Doctrine\Common\Collections\ArrayCollection();
+         $this->dateMouvement = new  \DateTime();
+$this->dateRetourPrevu = new  \DateTime();
     }
 
     /**

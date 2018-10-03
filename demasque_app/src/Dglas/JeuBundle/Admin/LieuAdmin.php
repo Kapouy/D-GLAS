@@ -55,7 +55,6 @@ class LieuAdmin extends AbstractAdmin
                 'required' => false,
             ))
             ->add('jeuUtilisable', CheckboxType::class, array(
-                'data' => true,
                 'required' => false,
             ))
         ;

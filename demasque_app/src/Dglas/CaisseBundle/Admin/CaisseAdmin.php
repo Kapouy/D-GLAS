@@ -91,7 +91,6 @@ class CaisseAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('id')
             ->add('dateCaisse')
             ->add('benevole')
             ->add('fond10')

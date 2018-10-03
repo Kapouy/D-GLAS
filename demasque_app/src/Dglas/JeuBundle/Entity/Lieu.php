@@ -140,8 +140,16 @@ class Lieu
     public function __construct()
     {
         $this->lieuFils = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->jeuUtilisable = true;
     }
 
+	public function __toString() {
+		if ($this->getLieuParent() != null) {
+			return $this->getLieuParent()->getNom().'-'.$this->nom;
+		}
+		return ''.$this->nom;
+	}
+	
     /**
      * Add lieuFil
      *

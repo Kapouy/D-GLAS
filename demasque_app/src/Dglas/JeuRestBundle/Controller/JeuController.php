@@ -11,19 +11,28 @@ class JeuController extends Controller implements ClassResourceInterface
     /**
      * @return array|\Dglas\JeuBundle\Entity\Jeu[]
      */
-    public function cgetAction(Request $request)
+    public function cgetAction(Request $request) 
     {
-        $repository = $this->getDoctrine()->getRepository('DglasJeuBundle:Jeu');
+        $repository = $this->getDoctrine()->getRepository('DglasJeuBundle:Jeu'); 
 
-        return $this->getDoctrine()->getRepository('DglasJeuBundle:Jeu')->findAll();
+	//return $repository->createQuery('SELECT j.nommenclatureJeu FROM DglasJeuBundle:Jeu j')->getResult();
+
+        //return $this->getDoctrine()->getRepository('DglasJeuBundle:Jeu')->findAll();
+	return $this->getDoctrine()->getRepository('DglasJeuBundle:Jeu')->test();
+	//return "bonjour";
+
     }
 
     public function getAction($id)
-    {
+    {	
         $object = $this->getDoctrine()->getRepository('DglasJeuBundle:Jeu')->findOneBy(['idPhysique' => $id]);
 
         //$this->denyAccessUnlessGranted('VIEW', $object);
 
-        return $object;
+	//var_dump($object);
+
+        //return $object->getNommenclatureJeu()->getNom();
+        return $object->getNommenclatureJeu();
+
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Dglas\JeuBundle\Repository;
+namespace Dglas\AnimateurBundle\Repository;
 
 /**
  * AnimateurRepository

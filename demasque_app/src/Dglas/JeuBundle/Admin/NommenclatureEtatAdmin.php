@@ -28,6 +28,7 @@ class NommenclatureEtatAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('nom')
+			->add('inventoriable')
             ->add('ordre')
             ->add('_action', null, array(
                 'actions' => array(
@@ -47,6 +48,7 @@ class NommenclatureEtatAdmin extends AbstractAdmin
         $formMapper
             ->add('nom')
             ->add('ordre')
+			->add('inventoriable')
         ;
     }
 
@@ -58,6 +60,7 @@ class NommenclatureEtatAdmin extends AbstractAdmin
         $showMapper
             ->add('nom')
             ->add('ordre')
+			->add('inventoriable')
         ;
     }
 }

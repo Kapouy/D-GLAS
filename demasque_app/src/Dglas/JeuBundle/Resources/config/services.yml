@@ -69,12 +69,12 @@ services:
             - { name: sonata.admin, manager_type: orm, group: admin, label: Mouvements }
         public: true
 
-    dglas_jeu.admin.animateur:
-        class: Dglas\JeuBundle\Admin\AnimateurAdmin
-        arguments: [~, Dglas\JeuBundle\Entity\Animateur, DglasJeuBundle:AnimateurAdmin]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Animateur }
-        public: true
+    # dglas_jeu.admin.animateur:
+    #     class: Dglas\JeuBundle\Admin\AnimateurAdmin
+    #     arguments: [~, Dglas\JeuBundle\Entity\Animateur, DglasJeuBundle:AnimateurAdmin]
+    #     tags:
+    #         - { name: sonata.admin, manager_type: orm, group: admin, label: Animateur }
+    #     public: true
 
     dglas_jeu.admin.inventaire:
         class: Dglas\JeuBundle\Admin\InventaireAdmin

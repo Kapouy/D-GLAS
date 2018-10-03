@@ -10,4 +10,18 @@ namespace Dglas\JeuBundle\Repository;
  */
 class LieuRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function getChoices()
+	{
+		$raw = $this->_em->createQuery('
+			SELECT c.id, c.nom
+			FROM DglasJeuBundle:Lieu c
+			ORDER BY c.id ASC
+		')->getResult();
+		$etat = array();
+		foreach ($raw as $r) {
+			$key          = $r['id'];
+			$etat[$key] = $r['nom'] ;
+		}
+		return $etat;
+	}
 }

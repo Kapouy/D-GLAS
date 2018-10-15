@@ -30,9 +30,9 @@ class AnimateurAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-			->add('user.lastname')
-			->add('user.firstname')
-            ->add('dateArrivee')
+			->add('user.lastname', null, ['label' => 'Nom'])
+			->add('user.firstname', null, ['label' => 'Prenom'])
+            ->add('dateArrivee', null, ['label' => 'Date d\'arrivée'])
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -51,12 +51,13 @@ class AnimateurAdmin extends AbstractAdmin
         $formMapper
 		    ->add('user', 'entity', array(
                 'class' => 'Application\Sonata\UserBundle\Entity\User',
-                'choice_label' => 'lastname',
+                'choice_label' => function ($user) {
+						return $user->getFirstname() . ' ' . $user->getLastname();
+					},
             ))
 			->add('dateArrivee', DateType::class, array(
                 'widget' => 'single_text',
                 'format' => 'dd/MM/yyyy',
-                'data' => new \DateTime(),
             ))
         ;
     }
@@ -67,9 +68,9 @@ class AnimateurAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-			->add('user.lastname')
-			->add('user.firstname')
-            ->add('dateArrivee')
+			->add('user.lastname', null, ['label' => 'Nom'])
+			->add('user.firstname', null, ['label' => 'Prenom'])
+            ->add('dateArrivee', null, ['label' => 'Date d\'arrivée'])
         ;
     }
 }

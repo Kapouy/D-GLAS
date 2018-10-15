@@ -16,7 +16,8 @@ class AnimateurAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
+			->add('user.lastname')
+			->add('user.firstname')
             ->add('dateArrivee')
         ;
     }
@@ -27,7 +28,8 @@ class AnimateurAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id')
+			->add('user.lastname')
+			->add('user.firstname')
             ->add('dateArrivee')
             ->add('_action', null, array(
                 'actions' => array(
@@ -55,7 +57,8 @@ class AnimateurAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id')
+			->add('user.lastname')
+			->add('user.firstname')
             ->add('dateArrivee')
         ;
     }

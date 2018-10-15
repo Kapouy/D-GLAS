@@ -8,6 +8,8 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+
 class AnimateurAdmin extends AbstractAdmin
 {
     /**
@@ -47,7 +49,15 @@ class AnimateurAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('dateArrivee')
+		    ->add('user', 'entity', array(
+                'class' => 'Application\Sonata\UserBundle\Entity\User',
+                'choice_label' => 'lastname',
+            ))
+			->add('dateArrivee', DateType::class, array(
+                'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy',
+                'data' => new \DateTime(),
+            ))
         ;
     }
 

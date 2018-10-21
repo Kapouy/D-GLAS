@@ -119,6 +119,7 @@ sonata_admin:
                     items:
                         - sonata.user.admin.user
                         - sonata.user.admin.group
+                        - dglas_animateur.admin.animateur
     security:
         handler: sonata.admin.security.handler.role
 

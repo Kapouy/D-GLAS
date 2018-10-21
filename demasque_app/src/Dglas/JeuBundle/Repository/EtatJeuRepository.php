@@ -10,4 +10,5 @@ namespace Dglas\JeuBundle\Repository;
  */
 class EtatJeuRepository extends \Doctrine\ORM\EntityRepository
 {
+	
 }
